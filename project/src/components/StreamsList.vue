@@ -2,23 +2,21 @@
     <div class="searhApp">
 
       <!-- ゲームカテゴリ検索 -->
-      <div class="section">
-        <div class="searchCategories">
-          <!-- ゲームタイトル入力 -->
-          <div class="inputregion">
-            <input v-model="inputCategoryText" type="text" class="input" placeholder="ゲームタイトル">
-            <button class="button" v-on:click="SearchCategories()">検索</button>
-          </div>
-          <!-- 検索結果一覧表示 -->
-          <div class="row">
-            <div class="columns large-3 medium-6" v-for="stream in streamLists" :key="stream">
-              <div class="card"> 
-                <div class="image-container">
-                  <img :src=stream.box_art_url v-on:click="SelectCategories(stream.id, stream.box_art_url)">
-                </div>
-                <div class="image-title">
-                  <div class="stream-text">{{ stream.name }}</div>
-                </div>
+      <div class="searchCategories">
+        <!-- ゲームタイトル入力 -->
+        <div class="inputregion">
+          <input v-model="inputCategoryText" type="text" class="input" placeholder="ゲームタイトル">
+          <button class="button" v-on:click="SearchCategories()">検索</button>
+        </div>
+        <!-- 検索結果一覧表示 -->
+        <div class="row">
+          <div class="columns large-3 medium-6" v-for="stream in streamLists" :key="stream">
+            <div class="card"> 
+              <div class="image-container">
+                <img :src=stream.box_art_url v-on:click="SelectCategories(stream.id, stream.box_art_url)">
+              </div>
+              <div class="image-title">
+                <div class="stream-text">{{ stream.name }}</div>
               </div>
             </div>
           </div>
@@ -26,27 +24,30 @@
       </div>
 
       <!-- 配信検索 -->
-      <div class="section">
-        <div class="searchChannels">
+      <div class="searchChannels">
+        <div class="searchTitle">
           <!-- 選択中のゲームタイトル -->
-          <label v-text="selectCategory"></label>
-          <img :src=selectCategoryImgSrc>
+          <div class="selectedTitle">
+            <label v-text="selectCategory"></label>
+            <img :src=selectCategoryImgSrc>
+          </div>
           <!-- 配信タイトル検索 -->
           <div class="inputregion">
             <input v-model="inputChannelText" type="text" class="input"  placeholder="配信タイトル">
             <button class="button" v-on:click="SearchChannels()">検索</button>
           </div>
-          <!-- 検索結果一覧表示 -->
-          <div class="row">
-            <div class="columns large-3 medium-6" v-for="channel in channelLists" :key="channel">
-              <div class="card" v-on:click="StreamJump(channel)"> 
-                <img :src=ImageReplace(channel.thumbnail_url) />
-                <div class="channel-text">{{ channel.title }}</div>
-              </div>
+        </div>
+        <!-- 検索結果一覧表示 -->
+        <div class="row">
+          <div class="columns large-3 medium-6" v-for="channel in channelLists" :key="channel">
+            <div class="card" v-on:click="StreamJump(channel)"> 
+              <img :src=ImageReplace(channel.thumbnail_url) />
+              <div class="channel-text">{{ channel.title }}</div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
 </template>
     
@@ -133,17 +134,32 @@ export default {
 
 .searhApp{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
-.item-list .searchCategories{
-    width: 30vh;
+.searchCategories{
+    width: 30%;
     height: 100vh;
+    border: 1px solid #000000;
 }
 
-.item-list .searchChannels{
-    width: 70vh;
+.searchChannels{
+    width: 70%;
     height: 100vh;
+    border: 1px solid #000000;
+}
+
+.inputregion{
+  height: 26px;
+}
+
+.searchTitle{
+  display: flex;
+  flex-direction: row;
+}
+
+.selectedTitle{
+  margin: 10px 30px;
 }
 
 .row {
@@ -151,8 +167,8 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    height: 35vh;
-    overflow-y: auto;
+    height: 70vh;
+    overflow-y: scroll;
 }
 
 .card {
