@@ -1,10 +1,13 @@
 import axios from 'axios';
 import config from '../../../../config/twitch_config.json';
 
+const clientID = config.ClientID;
+const authorization = `Bearer ${config.Authorization}`;
+
 const axiosInstance = axios.create({
   headers: {
-    'Client-Id': config.ClientId,
-    'Authorization': `Bearer ${config.Authorization}`
+    'Client-Id': clientID,
+    'Authorization': authorization
   }
 });
 

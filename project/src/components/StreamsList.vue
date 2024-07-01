@@ -1,41 +1,42 @@
 <template>
     <div class="searhApp">
+
+      <!-- ゲームカテゴリ検索 -->
       <div class="section">
-          <div class="searchCategories">
-            <div class="inputregion">
-              <input v-model="inputCategoryText" type="text" class="input" placeholder="ゲームタイトル">
-              <button class="button" v-on:click="SearchCategories()">検索</button>
-            </div>
-            <!--<div class="row">
-              <b-table :data="streamLists" :colums="columns"></b-table>
-            </div>-->
-            <div class="row">
-              <div class="columns large-3 medium-6" v-for="stream in streamLists" :key="stream">
-                <div class="card"> 
-    
-                  <div class="image-container">
-                    <img :src=stream.box_art_url v-on:click="SelectCategories(stream.id, stream.box_art_url)">
-                  </div>
-    
-                  <div class="image-title">
-                    <div class="stream-text">{{ stream.name }}</div>
-                  </div>
-    
+        <div class="searchCategories">
+          <!-- ゲームタイトル入力 -->
+          <div class="inputregion">
+            <input v-model="inputCategoryText" type="text" class="input" placeholder="ゲームタイトル">
+            <button class="button" v-on:click="SearchCategories()">検索</button>
+          </div>
+          <!-- 検索結果一覧表示 -->
+          <div class="row">
+            <div class="columns large-3 medium-6" v-for="stream in streamLists" :key="stream">
+              <div class="card"> 
+                <div class="image-container">
+                  <img :src=stream.box_art_url v-on:click="SelectCategories(stream.id, stream.box_art_url)">
+                </div>
+                <div class="image-title">
+                  <div class="stream-text">{{ stream.name }}</div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
+
+      <!-- 配信検索 -->
       <div class="section">
         <div class="searchChannels">
+          <!-- 選択中のゲームタイトル -->
           <label v-text="selectCategory"></label>
           <img :src=selectCategoryImgSrc>
-    
+          <!-- 配信タイトル検索 -->
           <div class="inputregion">
             <input v-model="inputChannelText" type="text" class="input"  placeholder="配信タイトル">
             <button class="button" v-on:click="SearchChannels()">検索</button>
           </div>
-    
+          <!-- 検索結果一覧表示 -->
           <div class="row">
             <div class="columns large-3 medium-6" v-for="channel in channelLists" :key="channel">
               <div class="card" v-on:click="StreamJump(channel)"> 
@@ -46,7 +47,6 @@
           </div>
         </div>
       </div>
-    
     </div>
 </template>
     
